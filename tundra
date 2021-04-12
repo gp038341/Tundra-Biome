@@ -1,0 +1,342 @@
+import pygame, sys
+import random
+import os
+import time
+from pygame import mixer
+
+WIDTH = 1500
+HEIGHT = 1000
+FPS = 30
+
+score = 0
+
+#DEFINE COLORS
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+LIGHT_BLUE = (48, 227, 255)
+
+#ASSET FOLDERS
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder, "arctic_img")
+
+#DRAW TEXT
+font_name = pygame.font.match_font("georgia")
+def draw_text(screen, text, size, x, y):
+    font = pygame.font.Font(font_name, size)
+    text_surface = font.render(text, True, WHITE)
+    text_rect = text_surface.get_rect()
+    text_rect.topleft = (x, y)
+    screen.blit(text_surface, text_rect)
+
+def show_start_screen():
+    screen.blit(background, background_rect)
+    draw_text(screen, "ARCTIC TUNDRA", 64, WIDTH / 2 - 200, HEIGHT / 4)
+    draw_text(screen, "Click on the animals to learn how they have adapted to survive the tundra biome", 22, WIDTH / 2 - 200, HEIGHT / 2)
+    draw_text(screen, "press 'q' to quit", 22, WIDTH / 2 - 200, HEIGHT / 1.6)
+    draw_text(screen, "Press a key to begin...", 18, WIDTH / 2 - 200, HEIGHT * 3 / 4)
+    pygame.display.flip()
+    waiting = True
+    while waiting:
+        keystate = pygame.key.get_pressed()
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or keystate[pygame.K_q]:
+                pygame.quit()
+            if event.type == pygame.KEYUP:
+                waiting = False
+
+def show_end_screen():
+    screen.blit(background, background_rect)
+    draw_text(screen, "Congratulations!", 64, WIDTH / 2 - 200, HEIGHT / 4)
+    draw_text(screen, "You found and learned about some of the animals in the tundra biome", 22, WIDTH / 2 - 200, HEIGHT / 2)
+    draw_text(screen, "press 'q' to quit", 22, WIDTH / 2 - 200, HEIGHT / 1.6)
+    pygame.display.flip()
+    waiting = True
+    while waiting:
+        keystate = pygame.key.get_pressed()
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or keystate[pygame.K_q]:
+                pygame.quit()
+
+
+#SHOW INFORMATION ABOUT ADAPTATIONS ON DIFFERENT SCREENS
+def show_polarbear_screen():
+    screen.fill(BLACK)
+    draw_text(screen, "You found the polar bear!", 64, 0,  HEIGHT + 30)
+    draw_text(screen, "Polar bears have a thick coat of insulated fur, which covers a warming layer of fat  This protects the polar bear from the cold temperature of the tundra biome. Fur even grows on the bottom of their paws, which protects against cold surfaces and provides a good grip on ice. Polar bears have a white coat which provides camouflage in the snow and ice. Polar bears have black skin under their white coat. This helps them soak in the sun to provide warmth.", 22, 0, HEIGHT + 60)
+    
+    draw_text(screen, "Press the enter key to continue", 35, 750, 800)
+    pygame.display.flip()
+    waiting = True
+    while waiting:
+        keystate = pygame.key.get_pressed()
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or keystate[pygame.K_q]:
+                pygame.quit()
+            if keystate[pygame.K_RETURN]:
+                waiting = False
+
+def show_fox_screen():
+    screen.fill(BLACK)
+    draw_text(screen, "You found the arctic fox!", 64, 0,  HEIGHT + 30)
+    draw_text(screen, "Arctic foxes have a thick fur coat which keeps their body temperature around 104℉ They have a layer of thick fur on their feet. This muffles the fox’s footsteps, making it easier for them to find and hunt prey. Like the polar bears, they have a white coat which helps them camouflage and hide from predators like polar bears and wolves.", 22, 0, HEIGHT + 60)
+    
+    draw_text(screen, "Press the enter key to continue", 35, 750, 800)
+    pygame.display.flip()
+    waiting = True
+    while waiting:
+        keystate = pygame.key.get_pressed()
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or keystate[pygame.K_q]:
+                pygame.quit()
+            if keystate[pygame.K_RETURN]:
+                waiting = False
+
+
+def show_hare_screen():
+    screen.fill(BLACK)
+    draw_text(screen, "You found the arctic hare!", 64, 0,  HEIGHT + 30)
+    draw_text(screen, "The paws of the Arctic hare are padded with the fur to help the animal spread weight while walking on snow and provide insulation from icy surfaces. Arctic hares have a keen sense of smell which allows them to find food hidden in the snow and detect predators. During winter, the coats are snow white and provide excellent camouflage, but towards spring, the color changes to blue-gray to match vegetation and local rocks.", 22, 0, HEIGHT + 60)
+    
+    draw_text(screen, "Press the enter key to continue", 35, 750, 800)
+    pygame.display.flip()
+    waiting = True
+    while waiting:
+        keystate = pygame.key.get_pressed()
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or keystate[pygame.K_q]:
+                pygame.quit()
+            if keystate[pygame.K_RETURN]:
+                waiting = False
+
+def show_squirrel_screen():
+    screen.fill(BLACK)
+    draw_text(screen, "You found the arctic ground squirrel!", 64, 0,  HEIGHT + 30)
+    draw_text(screen, "Arctic ground squirrels hibernate and spend 7-8 months in hibernation.While hibernating, they have a condition called supercooling in which their body temperature drops below freezing. At intervals of two to three weeks, hibernating squirrels shiver and shake for 12 to 15 hours to create heat that warms them back to a normal body temperature of about 98 degrees Fahrenheit. ", 22, 0, HEIGHT + 60)
+    
+    draw_text(screen, "Press the enter key to continue", 35, 750, 800)
+    pygame.display.flip()
+    waiting = True
+    while waiting:
+        keystate = pygame.key.get_pressed()
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or keystate[pygame.K_q]:
+                pygame.quit()
+            if keystate[pygame.K_RETURN]:
+                waiting = False
+
+class Polarbear(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(os.path.join(img_folder, "Polar_Bear.jpeg")).convert()
+        self.image = pygame.transform.scale(self.image, (70, 135))
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.rect.x = 800
+        self.rect.y = 835
+        self.mask = pygame.mask.from_surface(self.image)
+
+
+class ArcticFox(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(os.path.join(img_folder, "Arctic_Fox.jpeg")).convert()
+        self.image = pygame.transform.scale(self.image, (70, 135))
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.rect.x = 400
+        self.rect.y = 835
+        self.mask = pygame.mask.from_surface(self.image)
+
+
+class ArcticHare(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(os.path.join(img_folder, "Arctic_Hare.jpeg")).convert()
+        self.image = pygame.transform.scale(self.image, (70, 135))
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.rect.x = 800
+        self.rect.y = 125
+        self.mask = pygame.mask.from_surface(self.image)
+
+class Arctic_Ground_Squirrel(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(os.path.join(img_folder, "Arctic_Ground_Squirrel.jpeg")).convert()
+        self.image = pygame.transform.scale(self.image, (70, 135))
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.rect.x = 400
+        self.rect.y = 135
+        self.mask = pygame.mask.from_surface(self.image)
+
+class Eagle(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(os.path.join(img_folder, "tundra_eagle.jpeg")).convert()
+        self.image = pygame.transform.scale(self.image, (70, 135))
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.rect.x = 600
+        self.rect.y = 35
+        self.mask = pygame.mask.from_surface(self.image)
+
+class Elephant(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(os.path.join(img_folder, "tundra_elephant.jpeg")).convert()
+        self.image = pygame.transform.scale(self.image, (70, 135))
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.rect.x = 600
+        self.rect.y = 505
+        self.mask = pygame.mask.from_surface(self.image)
+
+    
+class Tiger(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(os.path.join(img_folder, "tundra_tiger.jpeg")).convert()
+        self.image = pygame.transform.scale(self.image, (70, 135))
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.rect.x = 300
+        self.rect.y = 500
+        self.mask = pygame.mask.from_surface(self.image)
+
+
+#INITIALIZE VARIABLES
+pygame.init()
+pygame.mixer.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("My Game")
+
+#BACKGROUND MUSIC
+
+
+clock = pygame.time.Clock()
+draw_text(screen, str(score), 35, 1400, 5)
+draw_text(screen, "SCORE: ", 35, 1200, 5)
+#ADD BACKGROUND
+bkgr_image = pygame.image.load(os.path.join(img_folder, "Tundra_Background.jpg")).convert()
+background = pygame.transform.scale(bkgr_image, (WIDTH, HEIGHT))
+background_rect = background.get_rect()
+bkgr_x = 0
+
+#SPRITE GROUPS
+all_sprites = pygame.sprite.Group()
+fox = ArcticFox()
+polarbear = Polarbear()
+hare = ArcticHare()
+squirrel = Arctic_Ground_Squirrel()
+eagle = Eagle()
+elephant = Elephant()
+tiger = Tiger()
+
+all_sprites.add(fox, polarbear, hare, squirrel, eagle, elephant, tiger)
+
+# GAME LOOP:
+#   Process Events
+#   Update
+#   Draw
+
+score = 0
+count = 0
+start = True
+end = True
+running = True
+while running:
+
+  if count == 4:
+    show_end_screen()
+  
+
+  #SHOW START SCREEN ONCE
+    if start:
+        show_start_screen()
+        start = False
+   
+    
+    clock.tick(FPS)
+
+    mouse_pos = pygame.mouse.get_pos()
+
+    #PROCESS EVENTS
+    keystate = pygame.key.get_pressed()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT or keystate[pygame.K_q]:
+            running = False
+
+        if event.types == pygame.MOUSEBUTTONDOWN and mouse_pos == polarbear.rect:
+            show_polarbear_screen()
+            score += 10
+            count += 1
+            polarbear.image = pygame.image.load(os.path.join(img_folder, "Tundra_Checkmark.png")).convert()
+            polarbear.image = pygame.transform.scale(polarbear.image, (70, 135))
+            
+
+        if event.types == pygame.MOUSEBUTTONDOWN and mouse_pos == squirrel.rect:
+            show_squirrel_screen()
+            score += 10
+            count += 1
+            squirrel.image = pygame.image.load(os.path.join(img_folder, "Tundra_Checkmark.png")).convert()
+            squirrel.image = pygame.transform.scale(squirrel.image, (70, 135))
+
+        if event.types == pygame.MOUSEBUTTONDOWN and mouse_pos == hare.rect:
+            show_hare_screen()
+            score += 10
+            count += 1
+            hare.image = pygame.image.load(os.path.join(img_folder, "Tundra_Checkmark.png")).convert()
+            hare.image = pygame.transform.scale(hare.image, (70, 135))
+        
+        if event.types == pygame.MOUSEBUTTONDOWN and mouse_pos == fox.rect:
+            show_fox_screen()
+            score += 10
+            count += 1
+            fox.image = pygame.image.load(os.path.join(img_folder, "Tundra_Checkmark.png")).convert()
+            fox.image = pygame.transform.scale(fox.image, (70, 135))
+    
+        if event.types == pygame.MOUSEBUTTONDOWN and mouse_pos == eagle.rect:
+            score -= 10
+
+        if event.types == pygame.MOUSEBUTTONDOWN and mouse_pos == elephant.rect:
+            score -= 10
+
+        if event.types == pygame.MOUSEBUTTONDOWN and mouse_pos == tiger.rect:
+            score -= 10
+
+    # DRAW
+    rel_x = bkgr_x % background.get_rect().width
+    screen.blit(background, (rel_x - background.get_rect().width, 0))
+    if rel_x < WIDTH:
+        screen.blit(background, (rel_x, 0))
+    bkgr_x -= 1
+
+    # UPDATE
+    all_sprites.update()
+    
+    all_sprites.draw(screen)
+    draw_text(screen, "Click on the Tundra Animal to Learn About Them", 24, 10, 10)
+    draw_text(screen, str(score), 35, 850, 5)
+    draw_text(screen, "SCORE: ", 35, 650, 5)
+
+    #FLIP AFTER DRAWING
+    pygame.display.flip()
+
+pygame.quit()
